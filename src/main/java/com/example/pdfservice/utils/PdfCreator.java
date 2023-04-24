@@ -1,43 +1,59 @@
 package com.example.pdfservice.utils;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.WriterProperties;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.Document;
+
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 
-import java.io.ByteArrayOutputStream;
-import java.util.List;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.util.ByteArrayDataSource;
+import java.io.*;
+import java.util.Properties;
+
 
 @Component
 public class PdfCreator {
 
-    public byte [] generatePDF(@NonNull String templateHtml){
+
+
+    public byte[] generatePDF(@NonNull String templateHtml) throws IOException {
+
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PdfWriter writer;
-        WriterProperties writerProperties = new WriterProperties();
 
-        writer = new PdfWriter(outputStream, writerProperties);
 
-        PdfDocument pdfDoc = new PdfDocument(writer);
 
-        Document document;
-        document = new Document(pdfDoc);
 
-        List<IElement> bodyElements = HtmlConverter.convertToElements(templateHtml);
-        for (IElement element : bodyElements) {
-            document.add((IBlockElement) element);
-        }
 
-        document.close();
+
+
+
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        HtmlConverter.convertToPdf(templateHtml, outputStream,
+                converterProperties);
+
+
+
 
         return outputStream.toByteArray();
 
     }
+   }
 
-}
+
+
+
+
+
+
+

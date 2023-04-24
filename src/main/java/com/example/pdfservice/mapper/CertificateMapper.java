@@ -15,7 +15,7 @@ public class CertificateMapper {
                 certificate.getId(),
                 certificate.getFullName(),
                 certificate.getPersonalInfo(),
-                CalendarUtil.getDate(certificate.getDate()),
+                CalendarUtil.getDate(certificate.getDate2()),
                 certificate.getEmail(),
                 certificate.getHasLink(),
                 certificate.getLink(),
@@ -27,7 +27,7 @@ public class CertificateMapper {
         return new Certificate(
                 certificateDTO.getFullName(),
                 certificateDTO.getPersonalInfo(),
-                CalendarUtil.getCalendar(certificateDTO.getDate()),
+                CalendarUtil.getCalendar(certificateDTO.getDate2()),
                 certificateDTO.getEmail(),
                 certificateDTO.getHasLink(),
                 certificateDTO.getLink(),

@@ -13,7 +13,7 @@ public class CertificateDTO {
     Long id;
     String fullName;
     String personalInfo;
-    String date;
+    String date2;
     String email;
     Boolean hasLink;
     String link;

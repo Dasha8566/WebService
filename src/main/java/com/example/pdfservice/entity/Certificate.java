@@ -37,9 +37,9 @@ public class Certificate {
     @Column(name="personal_info")
     String personalInfo;
 
-    @Column(name="date")
+    @Column(name="date2")
     @Temporal(TemporalType.DATE)
-    Calendar date;
+    Calendar date2;
 
     @Column(name="email",nullable = false)
     String email;
@@ -54,10 +54,10 @@ public class Certificate {
     @JoinColumn(name="event_id")
     Event event;
 
-    public Certificate(String fullName, String personalInfo, Calendar date, String email, Boolean hasLink, String link, Event event) {
+    public Certificate(String fullName, String personalInfo, Calendar date2, String email, Boolean hasLink, String link, Event event) {
         this.fullName = fullName;
         this.personalInfo = personalInfo;
-        this.date = date;
+        this.date2 = date2;
         this.email = email;
         this.hasLink = hasLink;
         this.link = link;

@@ -44,10 +44,10 @@ public class Event {
     @Column(name="hours")
     Integer hours;
 
-    @Column(name="main_text")
+    @Column(name="main_text", length = 1000)
     String mainText;
 
-    @Column(name="add_text")
+    @Column(name="add_text", length = 1000)
     String additionalText;
 
     @Column(name="date")

@@ -10,6 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+
 public class PdfServiceApplication {
 
 	public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class PdfServiceApplication {
 	@Bean
 	public Docket apiSwagger() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.example.pdfService.api")).build();
+				.apis(RequestHandlerSelectors.basePackage("com.example.pdfservice.api")).build();
 	}
 }
 
