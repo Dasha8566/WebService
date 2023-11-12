@@ -5,6 +5,7 @@ import com.example.pdfservice.exceptions.DataBaseException;
 import com.example.pdfservice.utils.PdfGenerator;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.expression.AccessException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,8 +17,8 @@ public class PdfService {
     private PdfGenerator pdfGenerator;
     private CertificateService certificateService;
 
-    public byte[] getPdfByCertId(@NonNull Long certId) throws IOException, DataBaseException {
-        Optional <Certificate> certificate=certificateService.getById(certId);
+    public byte[] getPdfByCertId(@NonNull Long certId, String userEmail) throws IOException, DataBaseException, AccessException {
+        Optional <Certificate> certificate=certificateService.getById(certId, userEmail);
         if(certificate.isPresent()){
             return  pdfGenerator.generatePdf(certificate.get());
         }else{

@@ -5,6 +5,7 @@ import com.example.pdfservice.enums.Template;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat;
 public class PdfGenerator {
     private PdfCreator pdfCreator;
     private ResourceLoader resourceLoader;
+    private Environment environment;
 
 
     public byte[] generatePdf(@NonNull Certificate certificate) throws IOException {
@@ -45,14 +47,15 @@ public class PdfGenerator {
 
 
         }
-        if(certificate.getHasLink()==true){
-
-                htmlTemplate=htmlTemplate.replace("#link#","Посилання: "+certificate.getLink());
+        if(certificate.getHasCode()==true){
+            String domain = environment.getProperty("code.domain");
+                htmlTemplate=htmlTemplate.replace("#link_here#","http://"+domain+":8080/p/"+certificate.getCode());
+                htmlTemplate=htmlTemplate.replace("#code#","Серійний номер : "+"http://"+domain+":8080/p/"+certificate.getCode());
             }else{
-                htmlTemplate=htmlTemplate.replace("#link#","");
+                htmlTemplate=htmlTemplate.replace("#code#","");
             }
 
-        htmlTemplate=htmlTemplate.replace("#date2#", "Отримано: "+CalendarUtil.getDate(certificate.getDate2()));
+        //htmlTemplate=htmlTemplate.replace("#date2#", "Отримано: "+CalendarUtil.getDate(certificate.getDate2()));
 
         //System.out.println(htmlTemplate);
         return pdfCreator.generatePDF(htmlTemplate);

@@ -37,30 +37,37 @@ public class Certificate {
     @Column(name="personal_info")
     String personalInfo;
 
-    @Column(name="date2")
+    @Column(name="lastSendDate")
     @Temporal(TemporalType.DATE)
-    Calendar date2;
+    Calendar lastSendDate;
 
     @Column(name="email",nullable = false)
     String email;
 
-    @Column(name="has_link")
-    Boolean hasLink;
+    @Column(name="has_code")
+    Boolean hasCode;
 
-    @Column(name="link", unique = true)
-    String link;
+    @Column(name="code", unique = true)
+    String code;
 
     @ManyToOne
     @JoinColumn(name="event_id")
     Event event;
 
-    public Certificate(String fullName, String personalInfo, Calendar date2, String email, Boolean hasLink, String link, Event event) {
+    public void setLastSendDate(Calendar lastSendDate) {
+        this.lastSendDate = lastSendDate;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Certificate(String fullName, String personalInfo, String email, Boolean hasCode, Event event) {
         this.fullName = fullName;
         this.personalInfo = personalInfo;
-        this.date2 = date2;
         this.email = email;
-        this.hasLink = hasLink;
-        this.link = link;
+        this.hasCode = hasCode;
         this.event = event;
+
     }
 }

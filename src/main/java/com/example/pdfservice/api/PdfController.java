@@ -1,6 +1,7 @@
 package com.example.pdfservice.api;
 
 import com.example.pdfservice.service.PdfService;
+import javax.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,10 @@ public class PdfController {
     private PdfService pdfService;
 
     @GetMapping("pdf/{certId}")
-    public ResponseEntity<Resource>getPdf(@PathVariable Long certId){
+    public ResponseEntity<Resource>getPdf(@PathVariable Long certId, HttpServletRequest request){
         try{
-            ByteArrayResource file = new ByteArrayResource(pdfService.getPdfByCertId(certId));
+            String userEmail = request.getUserPrincipal().getName();
+            ByteArrayResource file = new ByteArrayResource(pdfService.getPdfByCertId(certId, userEmail));
             return ResponseEntity.ok().header(CONTENT_DISPOSITION, "attachment; filename=\"" + "file.pdf" + "\"").body(file);
 
         }catch (Exception e){

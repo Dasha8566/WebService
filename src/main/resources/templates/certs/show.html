@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check</title>
+</head>
+<body>
+<h1>Інформація:</h1>
+
+<div class="certificate">
+    <p>Про сертифікат:</p>
+
+</div>
+
+<div class="event">
+    <p>Про подію:</p>
+
+</div>
+
+<ul>
+</ul>
+
+<script>
+
+
+
+
+fetch('http://localhost:8080/api/v1/certificate-management/certificates/code/'+'${code}')
+    .then(res =>{
+        return res.json();
+        })
+    .then(data => {
+
+        const certificateDiv = document.querySelector('.certificate');
+
+        const properties = Object.keys(data);
+
+        const eventId =data.eventId;
+
+
+        properties.forEach(property => {
+            const value = data[property];
+            const element = document.createElement('div');
+            element.textContent = `${property}: ${value}`;
+            certificateDiv.appendChild(element);
+
+        })
+
+        fetch('http://localhost:8080/api/v1/event-management/events/id/'+eventId+'')
+            .then(res2 =>{
+                return res2.json();
+            })
+            .then(data2 => {
+
+                const eventDiv = document.querySelector('.event');
+
+                const properties = Object.keys(data2);
+                properties.forEach(property => {
+                    const value = data2[property];
+                    const element = document.createElement('div');
+                    element.textContent = `${property}: ${value}`;
+                    eventDiv.appendChild(element);
+
+                })
+
+
+            })
+    });
+</script>
+
+</body>
+</html>

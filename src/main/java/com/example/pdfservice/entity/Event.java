@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -61,6 +62,9 @@ public class Event {
     @OneToMany(mappedBy = "event")
     List<Certificate> certificateList;
 
+    @ManyToMany(mappedBy = "events")
+    List <User> users;
+
     public Event(String eventName, String title, Integer hours, String mainText, String additionalText, Calendar date) {
         this.eventName = eventName;
         this.title = title;
@@ -78,5 +82,10 @@ public class Event {
         this.additionalText = additionalText;
         this.date = date;
         this.template = template;
+        this.users = new ArrayList<>();
+    }
+
+    public void addUser(User user){
+        this.users.add(user);
     }
 }
