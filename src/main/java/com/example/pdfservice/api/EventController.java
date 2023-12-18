@@ -119,7 +119,7 @@ public class EventController {
         String userEmail = request.getUserPrincipal().getName();
 
         Event event=eventMapper.toEntityFromOut(eventService.getDtoById(id, userEmail));
-        User user = userRepository.findUserByEmail(userEmail).orElseThrow(()->new UsernameNotFoundException("User not found with email="+userEmail));
+        User user = userRepository.findUserByEmail(email).orElseThrow(()->new UsernameNotFoundException("User not found with email="+userEmail));
         event.addUser(user);
         user.addEvent(event);
 
